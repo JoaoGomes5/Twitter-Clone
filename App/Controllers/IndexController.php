@@ -9,7 +9,7 @@ use MF\Model\Container;
 class IndexController extends Action {
 
 	public function index() {
-		
+
 		$this->view->login = isset($_GET['login']) ? $_GET['login'] : '';
 		$this->render('index');
 	}
@@ -33,7 +33,7 @@ class IndexController extends Action {
 
 		$user->__set('username', $_POST['username']);
 		$user->__set('email', $_POST['email']);
-		$user->__set('password', $_POST['password']);
+		$user->__set('password',md5($_POST['password']) );
 
 		
 		if($user->validarRegisto() && count($user->getUserFromEmail()) == 0) {

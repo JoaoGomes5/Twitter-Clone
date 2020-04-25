@@ -93,6 +93,17 @@ class User extends  Model{
 
 
     }
+            //buscar a db o pesquisado
+    public function getAll(){
+
+        $query = "SELECT id, username , email FROM users where username LIKE :username";
+        $stmt = $this->db->prepare($query);
+        $stmt->bindValue(':username' , '%'.$this->__get('username').'%');
+        $stmt->execute();  
+
+
+        return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+    }
 
 
 }
