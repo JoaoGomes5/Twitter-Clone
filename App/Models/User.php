@@ -69,6 +69,31 @@ class User extends  Model{
 
     }
 
+    public function autenticar(){
+
+             $query = "SELECT id , username, email from users where email= :email and password = :password";
+             $stmt = $this->db->prepare($query);
+             $stmt->bindValue(':email' , $this->__get('email'));
+             $stmt->bindValue(':password' , $this->__get('password'));
+             $stmt->execute();        
+
+             $user = $stmt->fetch(\PDO::FETCH_ASSOC);
+
+
+            if($user['id'] != '' && $user['username'] != ''){
+
+            $this->__set('id' , $user['id']);
+            $this->__set('username' , $user['username']);
+            
+
+             }
+
+             return $this;
+
+
+
+    }
+
 
 }
 
