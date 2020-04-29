@@ -46,12 +46,17 @@ class Tweet extends  Model{
 		 	$query="
 
 		 	SELECT 
-		 		t.id, t.id_user, u.username , t.tweet, DATE_FORMAT(t.date, '%d/%m/%Y %H:%i') as date
+		 		t.id, 
+		 		t.id_user, 
+		 		u.username , 
+		 		t.tweet, 
+		 		DATE_FORMAT(t.date, '%d/%m/%Y %H:%i') as date
 		 	FROM 
 		 		tweets as t
 		 		LEFT JOIN users = u on(t.id_user = u.id)
 		 	WHERE 
 		 		t.id_user = :id_user
+		 		or t.id_user in (SELECT id_user_following FROM user_followers WHERE id_user  = :id_user)
 		 	ORDER BY
 		 		t.date desc
 		 	
@@ -63,6 +68,20 @@ class Tweet extends  Model{
 
 		 	return $stmt->fetchAll(\PDO::FETCH_ASSOC);
 
+
+		 }
+
+		 public function deleteTweet($id_tweet_for_delete, $id_user){
+
+		 $query ="DELETE FROM tweets WHERE  id = :id and id_user = :id_user ";
+
+            $stmt = $this->db->prepare($query);
+            $stmt->bindValue(":id" , $id_tweet_for_delete);
+            $stmt->bindValue(":id_user" , $id_user);
+            $stmt->execute();
+
+
+            return true;
 
 		 }
 

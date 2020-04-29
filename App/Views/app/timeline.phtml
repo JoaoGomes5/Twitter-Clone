@@ -8,7 +8,7 @@
 	  	<a class="menuItem" href="/sair">
 	  		Sair
 	  	</a>
-			<img src="/img/twitter_logo.png" class="menuIco" />
+			<a href="/timeline"><img src="/img/twitter_logo.png" class="menuIco" /></a>
 	  </div>
 	</div>
 </nav>
@@ -27,7 +27,7 @@
 					
 					<div class="row mt-2 mb-2">
 						<div class="col mb-2">
-							<span class="perfilPainelNome">Nome do Usuário</span>
+							<span class="perfilPainelNome"><?= $this->view->info_user['username'] ?></span>
 						</div>
 					</div>
 
@@ -35,17 +35,17 @@
 
 						<div class="col">
 							<span class="perfilPainelItem">Tweets</span><br />
-							<span class="perfilPainelItemValor">0</span>
+							<span class="perfilPainelItemValor"><?= $this->view->total_tweets['total_tweet'] ?></span>
 						</div>
 
 						<div class="col">
 							<span class="perfilPainelItem">Seguindo</span><br />
-							<span class="perfilPainelItemValor">0</span>
+							<span class="perfilPainelItemValor"><?= $this->view->total_following['total_following'] ?></span>
 						</div>
 
 						<div class="col">
 							<span class="perfilPainelItem">Seguidores</span><br />
-							<span class="perfilPainelItemValor">0</span>
+							<span class="perfilPainelItemValor"><?= $this->view->total_followers['total_followers'] ?></span>
 						</div>
 
 					</div>
@@ -81,9 +81,11 @@
 					<p><?=$tweet['tweet']?></p>
 
 					<br />
-					<form>
+					<form action="" method="GET">
 						<div class="col d-flex justify-content-end">
-							<button type="submit" class="btn btn-danger"><small>Remover</small></button>
+							<?php if($tweet['id_user'] == $_SESSION['id']) : ?>
+							<a  href="/delete_tweet?delete=<?=($tweet['id'])?>&id_user=<?=$_SESSION['id']?>" type="submit" class="btn btn-danger"><small>Remover</small></a>
+						<?php  endif ?>
 						</div>
 					</form>		
 				</div>

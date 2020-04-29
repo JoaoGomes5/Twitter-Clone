@@ -56,6 +56,18 @@ class Route extends Bootstrap {
 			'action' => 'quemSeguir'
 		);
 
+		$routes['acao'] = array(
+			'route' => '/acao',
+			'controller' => 'AppController',
+			'action' => 'acao'
+		);
+
+		$routes['delete_tweet'] = array(
+			'route' => '/delete_tweet',
+			'controller' => 'AppController',
+			'action' => 'deleteTweet'
+		);
+
 
 
 
